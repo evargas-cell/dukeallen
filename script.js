@@ -1,5 +1,7 @@
 /* === Duke Allen & Co — script.js === */
 
+const LENDINGWISE_URL = 'https://app.lendingwise.com/HMLOWebForm.php?bRc=405994c1adade29d&fOpt=8e614f58c0d670e4&op=69ae9aa7bfc04392';
+
 // Sticky nav shadow on scroll
 const header = document.getElementById('site-header');
 window.addEventListener('scroll', () => {
@@ -40,7 +42,7 @@ const observer = new IntersectionObserver((entries) => {
 
 fadeEls.forEach(el => observer.observe(el));
 
-// ── Form validation helpers ────────────────────────────────────────
+// ── Validation helpers ─────────────────────────────────────────────
 function showError(inputId, errorId, message) {
   const input = document.getElementById(inputId);
   const error = document.getElementById(errorId);
@@ -53,10 +55,28 @@ function clearError(inputId, errorId) {
   if (input) input.style.borderColor = '';
   if (error) error.textContent = '';
 }
-function isValidPhone(v) { return /^\+?[\d\s\-().]{7,}$/.test(v.trim()); }
 function isValidEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()); }
 
-// ── Hero prequalify form ────────────────────────────────────────────
+// ── Submit to Netlify + redirect to Lendingwise ────────────────────
+function submitAndRedirect(formEl, formName, nameVal, emailVal, btn, lang) {
+  btn.textContent = lang === 'es' ? 'Redirigiendo...' : 'Redirecting...';
+  btn.disabled = true;
+
+  fetch('/', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({
+      'form-name': formName,
+      'name': nameVal,
+      'email': emailVal
+    }).toString()
+  })
+  .finally(() => {
+    window.location.href = LENDINGWISE_URL;
+  });
+}
+
+// ── Hero prequalify form ───────────────────────────────────────────
 const heroForm = document.getElementById('hero-form');
 if (heroForm) {
   heroForm.addEventListener('submit', (e) => {
@@ -64,42 +84,28 @@ if (heroForm) {
     let valid = true;
 
     const name  = document.getElementById('hero-name').value;
-    const phone = document.getElementById('hero-phone').value;
-    const loan  = document.getElementById('hero-loan-type').value;
+    const email = document.getElementById('hero-email').value;
 
     clearError('hero-name',  'hero-name-error');
-    clearError('hero-phone', 'hero-phone-error');
-    clearError('hero-loan-type', 'hero-loan-error');
+    clearError('hero-email', 'hero-email-error');
 
     if (!name.trim()) {
       showError('hero-name', 'hero-name-error', 'Please enter your name.');
       valid = false;
     }
-    if (!isValidPhone(phone)) {
-      showError('hero-phone', 'hero-phone-error', 'Please enter a valid phone number.');
-      valid = false;
-    }
-    if (!loan) {
-      showError('hero-loan-type', 'hero-loan-error', 'Please select a loan type.');
+    if (!isValidEmail(email)) {
+      showError('hero-email', 'hero-email-error', 'Please enter a valid email address.');
       valid = false;
     }
 
     if (valid) {
-      // PLACEHOLDER: Replace with real form submission (Formspree, Netlify, etc.)
-      heroForm.innerHTML = `
-        <div style="text-align:center;padding:2rem 0;">
-          <div style="font-size:2.5rem;margin-bottom:0.75rem;">✅</div>
-          <h3 style="color:#fff;margin-bottom:0.5rem;">Application Started!</h3>
-          <p style="color:rgba(255,255,255,0.6);font-size:0.9rem;">
-            We'll call you back within 1 business hour.<br/>
-            Or call us now: <a href="tel:13055226126" style="color:#0AA5AD;">1-800-DUKEALLEN</a>
-          </p>
-        </div>`;
+      const btn = heroForm.querySelector('button[type="submit"]');
+      submitAndRedirect(heroForm, 'prequalify', name, email, btn, 'en');
     }
   });
 }
 
-// ── Contact form ────────────────────────────────────────────────────
+// ── Contact form ───────────────────────────────────────────────────
 const contactForm = document.getElementById('contact-form');
 if (contactForm) {
   contactForm.addEventListener('submit', (e) => {
@@ -107,42 +113,57 @@ if (contactForm) {
     let valid = true;
 
     const name  = document.getElementById('cf-name').value;
-    const phone = document.getElementById('cf-phone').value;
-    const loan  = document.getElementById('cf-loan').value;
+    const email = document.getElementById('cf-email').value;
 
     clearError('cf-name',  'cf-name-error');
-    clearError('cf-phone', 'cf-phone-error');
-    clearError('cf-loan',  'cf-loan-error');
+    clearError('cf-email', 'cf-email-error');
 
     if (!name.trim()) {
       showError('cf-name', 'cf-name-error', 'Please enter your name.');
       valid = false;
     }
-    if (!isValidPhone(phone)) {
-      showError('cf-phone', 'cf-phone-error', 'Please enter a valid phone number.');
-      valid = false;
-    }
-    if (!loan) {
-      showError('cf-loan', 'cf-loan-error', 'Please select a loan type.');
+    if (!isValidEmail(email)) {
+      showError('cf-email', 'cf-email-error', 'Please enter a valid email address.');
       valid = false;
     }
 
     if (valid) {
-      // PLACEHOLDER: Replace with real form submission
-      contactForm.innerHTML = `
-        <div style="text-align:center;padding:2.5rem 0;">
-          <div style="font-size:2.5rem;margin-bottom:0.75rem;">✅</div>
-          <h3 style="margin-bottom:0.5rem;">Message Sent!</h3>
-          <p style="color:#5A7080;font-size:0.9rem;">
-            We'll respond within 1 business hour.<br/>
-            Or call us: <a href="tel:13055226126" style="color:#0AA5AD;">1-800-DUKEALLEN</a>
-          </p>
-        </div>`;
+      const btn = contactForm.querySelector('button[type="submit"]');
+      submitAndRedirect(contactForm, 'contact', name, email, btn, 'en');
     }
   });
 }
 
-// ── Email capture form ──────────────────────────────────────────────
+// ── Spanish form ───────────────────────────────────────────────────
+const esForm = document.getElementById('apply-form-es');
+if (esForm) {
+  esForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    let valid = true;
+
+    const name  = document.getElementById('nombre').value;
+    const email = document.getElementById('correo').value;
+
+    clearError('nombre', 'es-name-error');
+    clearError('correo', 'es-email-error');
+
+    if (!name.trim()) {
+      showError('nombre', 'es-name-error', 'Por favor ingrese su nombre.');
+      valid = false;
+    }
+    if (!isValidEmail(email)) {
+      showError('correo', 'es-email-error', 'Por favor ingrese un correo válido.');
+      valid = false;
+    }
+
+    if (valid) {
+      const btn = esForm.querySelector('button[type="submit"]');
+      submitAndRedirect(esForm, 'solicitud-espanol', name, email, btn, 'es');
+    }
+  });
+}
+
+// ── Email capture form ─────────────────────────────────────────────
 const emailCapture = document.getElementById('email-capture');
 if (emailCapture) {
   emailCapture.addEventListener('submit', (e) => {
@@ -156,7 +177,6 @@ if (emailCapture) {
       return;
     }
 
-    // PLACEHOLDER: Wire to Mailchimp, ConvertKit, or similar
     emailCapture.innerHTML = `<p style="color:rgba(255,255,255,0.8);font-size:0.9rem;">
       ✅ Guide sent! Check your inbox.
     </p>`;

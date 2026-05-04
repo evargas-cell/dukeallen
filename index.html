@@ -148,45 +148,22 @@
 
         <!-- Right: Above-fold prequalification form — fixes CV4 -->
         <div class="hero-form-card fade-in fade-in-delay">
-          <h3 class="form-card-title">Get Prequalified Today</h3>
-          <p class="form-card-sub">We call you back within 1 business hour.</p>
-          <form class="prequalify-form" id="hero-form" novalidate>
+          <h3 class="form-card-title">Start Your Application</h3>
+          <p class="form-card-sub">Enter your info — we'll take you straight to the application.</p>
+          <form class="prequalify-form" id="hero-form" name="prequalify" netlify novalidate>
+            <input type="hidden" name="form-name" value="prequalify" />
             <div class="form-group">
               <label for="hero-name">Full Name <span class="required">*</span></label>
               <input type="text" id="hero-name" name="name" placeholder="John Smith" required />
               <span class="field-error" id="hero-name-error"></span>
             </div>
             <div class="form-group">
-              <label for="hero-phone">Phone <span class="required">*</span></label>
-              <input type="tel" id="hero-phone" name="phone" placeholder="(305) 555-0100" required />
-              <span class="field-error" id="hero-phone-error"></span>
-            </div>
-            <div class="form-group">
-              <label for="hero-loan-type">Loan Type <span class="required">*</span></label>
-              <select id="hero-loan-type" name="loan_type" required>
-                <option value="">Select loan type...</option>
-                <option>Fix &amp; Flip</option>
-                <option>Bridge Loan</option>
-                <option>New Construction</option>
-                <option>Long Term Purchase</option>
-                <option>Cash Out Refinance</option>
-                <option>Transactional Funding</option>
-              </select>
-              <span class="field-error" id="hero-loan-error"></span>
-            </div>
-            <div class="form-group">
-              <label for="hero-amount">Estimated Loan Amount</label>
-              <select id="hero-amount" name="loan_amount">
-                <option value="">Select range...</option>
-                <option>Under $100K</option>
-                <option>$100K – $250K</option>
-                <option>$250K – $500K</option>
-                <option>$500K – $1M</option>
-                <option>$1M+</option>
-              </select>
+              <label for="hero-email">Email Address <span class="required">*</span></label>
+              <input type="email" id="hero-email" name="email" placeholder="john@email.com" required />
+              <span class="field-error" id="hero-email-error"></span>
             </div>
             <button type="submit" class="btn btn-accent btn-full">
-              Start My Application →
+              Continue to Application →
             </button>
           </form>
           <p class="form-disclaimer">
@@ -738,40 +715,22 @@
 
         <!-- CV3 fix: Reduced to 3 core fields + loan type. Was 5 fields. -->
         <div class="contact-form-card fade-in">
-          <h3>Send a Message</h3>
-          <p>We respond within 1 business hour during office hours.</p>
-          <form class="contact-form" id="contact-form" novalidate>
+          <h3>Start Your Application</h3>
+          <p>Enter your info and we'll take you straight to the full application.</p>
+          <form class="contact-form" id="contact-form" name="contact" netlify novalidate>
+            <input type="hidden" name="form-name" value="contact" />
             <div class="form-group">
               <label for="cf-name">Full Name <span class="required">*</span></label>
               <input type="text" id="cf-name" name="name" placeholder="John Smith" required />
               <span class="field-error" id="cf-name-error"></span>
             </div>
             <div class="form-group">
-              <label for="cf-phone">Phone <span class="required">*</span></label>
-              <input type="tel" id="cf-phone" name="phone" placeholder="(305) 555-0100" required />
-              <span class="field-error" id="cf-phone-error"></span>
-            </div>
-            <div class="form-group">
-              <label for="cf-loan">Loan Type <span class="required">*</span></label>
-              <select id="cf-loan" name="loan_type" required>
-                <option value="">Select...</option>
-                <option>Fix &amp; Flip</option>
-                <option>Bridge Loan</option>
-                <option>New Construction</option>
-                <option>Long Term Purchase</option>
-                <option>Cash Out Refinance</option>
-                <option>Transactional Funding</option>
-                <option>Credit Restoration</option>
-                <option>Other</option>
-              </select>
-              <span class="field-error" id="cf-loan-error"></span>
-            </div>
-            <div class="form-group">
-              <label for="cf-message">Message</label>
-              <textarea id="cf-message" name="message" rows="4" placeholder="Tell us about your deal or question..."></textarea>
+              <label for="cf-email">Email Address <span class="required">*</span></label>
+              <input type="email" id="cf-email" name="email" placeholder="john@email.com" required />
+              <span class="field-error" id="cf-email-error"></span>
             </div>
             <button type="submit" class="btn btn-primary btn-full">
-              Send Message →
+              Continue to Application →
             </button>
           </form>
           <p class="form-disclaimer">

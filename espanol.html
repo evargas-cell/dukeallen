@@ -631,63 +631,24 @@
         </div>
 
         <div class="apply-form-es fade-in">
-          <h3>Cuéntenos de su Proyecto</h3>
-          <p class="form-note">Todos los campos son confidenciales. Respondemos en menos de 24 horas hábiles.</p>
+          <h3>Comience su Solicitud</h3>
+          <p class="form-note">Ingrese su información y le llevaremos directamente a la solicitud completa.</p>
 
-          <form id="apply-form-es" novalidate>
-            <div class="form-row">
-              <div class="form-group">
-                <label for="nombre">Nombre completo *</label>
-                <input type="text" id="nombre" name="nombre" placeholder="Juan García" required />
-              </div>
-              <div class="form-group">
-                <label for="telefono">Teléfono *</label>
-                <input type="tel" id="telefono" name="telefono" placeholder="(555) 000-0000" required />
-              </div>
+          <form id="apply-form-es" name="solicitud-espanol" netlify novalidate>
+            <input type="hidden" name="form-name" value="solicitud-espanol" />
+            <div class="form-group">
+              <label for="nombre">Nombre completo *</label>
+              <input type="text" id="nombre" name="nombre" placeholder="Juan García" required />
+              <span class="field-error" id="es-name-error"></span>
             </div>
 
             <div class="form-group">
               <label for="correo">Correo electrónico *</label>
               <input type="email" id="correo" name="correo" placeholder="juan@ejemplo.com" required />
+              <span class="field-error" id="es-email-error"></span>
             </div>
 
-            <div class="form-row">
-              <div class="form-group">
-                <label for="tipo-prestamo">Tipo de préstamo *</label>
-                <select id="tipo-prestamo" name="tipo-prestamo" required>
-                  <option value="">Seleccione...</option>
-                  <option value="fix-flip">Fix &amp; Flip</option>
-                  <option value="puente">Préstamo Puente</option>
-                  <option value="construccion">Construcción Nueva</option>
-                  <option value="largo-plazo">Compra a Largo Plazo</option>
-                  <option value="cash-out">Refinanciamiento Cash-Out</option>
-                  <option value="transaccional">Financiamiento Transaccional</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="monto">Monto aproximado del préstamo *</label>
-                <select id="monto" name="monto" required>
-                  <option value="">Seleccione...</option>
-                  <option value="menos-100k">Menos de $100,000</option>
-                  <option value="100k-250k">$100,000 – $250,000</option>
-                  <option value="250k-500k">$250,000 – $500,000</option>
-                  <option value="500k-1m">$500,000 – $1,000,000</option>
-                  <option value="mas-1m">Más de $1,000,000</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="estado">Estado donde está la propiedad</label>
-              <input type="text" id="estado" name="estado" placeholder="Ej. Texas, Georgia, Florida..." />
-            </div>
-
-            <div class="form-group">
-              <label for="mensaje">Detalles del proyecto (opcional)</label>
-              <textarea id="mensaje" name="mensaje" placeholder="Cuéntenos brevemente sobre el proyecto: tipo de propiedad, condición, estrategia de salida, cronograma..."></textarea>
-            </div>
-
-            <button type="submit" class="btn btn-primary form-submit-es">Enviar Solicitud — Respuesta en 24 Hrs</button>
+            <button type="submit" class="btn btn-primary form-submit-es">Continuar a la Solicitud →</button>
             <p class="form-privacy">🔒 Su información es confidencial y nunca será compartida con terceros.</p>
           </form>
         </div>
@@ -766,17 +727,5 @@
   </footer>
 
   <script src="script.js" defer></script>
-  <script>
-    const form = document.getElementById('apply-form-es');
-    if (form) {
-      form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const btn = form.querySelector('button[type="submit"]');
-        btn.textContent = '✓ Solicitud enviada — le contactaremos pronto';
-        btn.disabled = true;
-        btn.style.background = '#10b981';
-      });
-    }
-  </script>
 </body>
 </html>
