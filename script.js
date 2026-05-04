@@ -57,12 +57,13 @@ function clearError(inputId, errorId) {
 }
 function isValidEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()); }
 
-// ── Submit to Netlify + redirect to Lendingwise ────────────────────
+// ── Submit to Netlify + send welcome email + redirect ──────────────
 function submitAndRedirect(formEl, formName, nameVal, emailVal, btn, lang) {
-  btn.textContent = lang === 'es' ? 'Redirigiendo...' : 'Redirecting...';
+  btn.textContent = lang === 'es' ? 'Enviando...' : 'Sending...';
   btn.disabled = true;
 
-  fetch('/', {
+  // Capture lead in Netlify Forms dashboard
+  const netlifySubmit = fetch('/', {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: new URLSearchParams({
@@ -70,10 +71,21 @@ function submitAndRedirect(formEl, formName, nameVal, emailVal, btn, lang) {
       'name': nameVal,
       'email': emailVal
     }).toString()
-  })
-  .finally(() => {
-    window.location.href = LENDINGWISE_URL;
   });
+
+  // Send welcome email via Resend (Netlify Function)
+  const emailSend = fetch('/.netlify/functions/send-welcome', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name: nameVal, email: emailVal, language: lang })
+  });
+
+  // Wait max 3s for both, then redirect regardless
+  const timeout = new Promise(resolve => setTimeout(resolve, 3000));
+  Promise.race([Promise.all([netlifySubmit, emailSend]), timeout])
+    .finally(() => {
+      window.location.href = LENDINGWISE_URL;
+    });
 }
 
 // ── Hero prequalify form ───────────────────────────────────────────
