@@ -61,6 +61,7 @@
 
       <nav class="main-nav" id="main-nav" aria-label="Main navigation">
         <a href="#loans">Loan Options</a>
+        <a href="#calculator">Calculator</a>
         <a href="#why-us">Why Us</a>
         <a href="#process">Our Process</a>
         <a href="#resources">Resources</a>
@@ -86,6 +87,7 @@
   <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
     <nav>
       <a href="#loans">Loan Options</a>
+      <a href="#calculator">Calculator</a>
       <a href="#why-us">Why Us</a>
       <a href="#process">Our Process</a>
       <a href="#resources">Resources</a>
@@ -293,6 +295,117 @@
               <li>Wholesale-friendly</li>
             </ul>
             <a href="#apply" class="loan-cta">Apply for Trans. Funding →</a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== FIX & FLIP CALCULATOR ===================== -->
+    <section class="section calculator-section bg-light" id="calculator">
+      <div class="container">
+        <div class="section-header fade-in">
+          <span class="section-label">Deal Analyzer</span>
+          <h2>Fix &amp; Flip Calculator</h2>
+          <p class="section-sub">Run your numbers before you run to the lender. Get a quick read on profit, ROI, and your estimated loan amount.</p>
+        </div>
+
+        <div class="calc-layout">
+
+          <!-- Inputs -->
+          <div class="calc-inputs-card fade-in">
+            <h3 class="calc-card-title">Enter Your Deal Numbers</h3>
+
+            <div class="calc-input-group">
+              <label for="calc-purchase">Purchase Price</label>
+              <div class="calc-input-wrap">
+                <span class="calc-prefix">$</span>
+                <input type="number" id="calc-purchase" min="0" step="1000" value="200000" />
+              </div>
+            </div>
+
+            <div class="calc-input-group">
+              <label for="calc-rehab">Rehab Budget</label>
+              <div class="calc-input-wrap">
+                <span class="calc-prefix">$</span>
+                <input type="number" id="calc-rehab" min="0" step="1000" value="50000" />
+              </div>
+            </div>
+
+            <div class="calc-input-group">
+              <label for="calc-arv">After Repair Value (ARV)</label>
+              <div class="calc-input-wrap">
+                <span class="calc-prefix">$</span>
+                <input type="number" id="calc-arv" min="0" step="1000" value="350000" />
+              </div>
+            </div>
+
+            <div class="calc-input-row">
+              <div class="calc-input-group">
+                <label for="calc-ltc">Loan-to-Cost (LTC)</label>
+                <div class="calc-input-wrap">
+                  <input type="number" id="calc-ltc" min="50" max="90" step="1" value="90" />
+                  <span class="calc-suffix">%</span>
+                </div>
+              </div>
+              <div class="calc-input-group">
+                <label for="calc-rate">Interest Rate</label>
+                <div class="calc-input-wrap">
+                  <input type="number" id="calc-rate" min="1" max="30" step="0.25" value="11" />
+                  <span class="calc-suffix">%</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="calc-input-group">
+              <label>Loan Term</label>
+              <div class="calc-term-options">
+                <button type="button" class="calc-term-btn active" data-months="12">12 mo</button>
+                <button type="button" class="calc-term-btn" data-months="18">18 mo</button>
+                <button type="button" class="calc-term-btn" data-months="24">24 mo</button>
+              </div>
+              <input type="hidden" id="calc-term" value="12" />
+            </div>
+          </div>
+
+          <!-- Results -->
+          <div class="calc-results-card fade-in">
+            <div class="calc-verdict-bar" id="calc-verdict-bar">
+              <span class="calc-verdict-icon" id="calc-verdict-icon">✅</span>
+              <span class="calc-verdict-label" id="calc-verdict-label">Strong Deal</span>
+            </div>
+
+            <div class="calc-metrics">
+              <div class="calc-metric">
+                <span class="calc-metric-label">Estimated Loan Amount</span>
+                <span class="calc-metric-value primary" id="res-loan">$225,000</span>
+              </div>
+              <div class="calc-metric">
+                <span class="calc-metric-label">Your Cash Needed</span>
+                <span class="calc-metric-value" id="res-cash">$25,000</span>
+              </div>
+              <div class="calc-metric-divider"></div>
+              <div class="calc-metric">
+                <span class="calc-metric-label">Monthly Interest Payment</span>
+                <span class="calc-metric-value" id="res-monthly">$2,063</span>
+              </div>
+              <div class="calc-metric">
+                <span class="calc-metric-label">Total Interest Cost</span>
+                <span class="calc-metric-value" id="res-interest">$24,750</span>
+              </div>
+              <div class="calc-metric-divider"></div>
+              <div class="calc-metric">
+                <span class="calc-metric-label">Estimated Gross Profit</span>
+                <span class="calc-metric-value accent" id="res-profit">$75,250</span>
+              </div>
+              <div class="calc-metric">
+                <span class="calc-metric-label">Return on Investment</span>
+                <span class="calc-metric-value accent" id="res-roi">30.1%</span>
+              </div>
+            </div>
+
+            <a href="#apply" class="btn btn-accent btn-full calc-cta">Get Funded for This Deal →</a>
+            <p class="calc-disclaimer">Estimates only. Closing costs not included. Actual loan terms subject to underwriting.</p>
           </div>
 
         </div>

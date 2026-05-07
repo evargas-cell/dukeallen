@@ -175,6 +175,70 @@ if (esForm) {
   });
 }
 
+// ── Fix & Flip Calculator ──────────────────────────────────────────
+function calcFmt(n) {
+  const abs = Math.abs(Math.round(n));
+  return (n < 0 ? '-$' : '$') + abs.toLocaleString('en-US');
+}
+
+function runCalc() {
+  const purchase = parseFloat(document.getElementById('calc-purchase').value) || 0;
+  const rehab    = parseFloat(document.getElementById('calc-rehab').value)    || 0;
+  const arv      = parseFloat(document.getElementById('calc-arv').value)      || 0;
+  const ltc      = parseFloat(document.getElementById('calc-ltc').value)      || 90;
+  const rate     = parseFloat(document.getElementById('calc-rate').value)     || 11;
+  const term     = parseFloat(document.getElementById('calc-term').value)     || 12;
+
+  const totalCost   = purchase + rehab;
+  const loanAmt     = totalCost * (Math.min(ltc, 90) / 100);
+  const cashNeeded  = totalCost - loanAmt;
+  const monthlyInt  = loanAmt * (rate / 100 / 12);
+  const totalInt    = monthlyInt * term;
+  const grossProfit = arv - purchase - rehab - totalInt;
+  const roi         = totalCost > 0 ? (grossProfit / totalCost) * 100 : 0;
+
+  document.getElementById('res-loan').textContent     = calcFmt(loanAmt);
+  document.getElementById('res-cash').textContent     = calcFmt(cashNeeded);
+  document.getElementById('res-monthly').textContent  = calcFmt(monthlyInt);
+  document.getElementById('res-interest').textContent = calcFmt(totalInt);
+  document.getElementById('res-profit').textContent   = calcFmt(grossProfit);
+  document.getElementById('res-roi').textContent      = roi.toFixed(1) + '%';
+
+  const verdictBar   = document.getElementById('calc-verdict-bar');
+  const verdictIcon  = document.getElementById('calc-verdict-icon');
+  const verdictLabel = document.getElementById('calc-verdict-label');
+  verdictBar.classList.remove('warn', 'bad');
+
+  if (roi >= 20) {
+    verdictIcon.textContent  = '✅';
+    verdictLabel.textContent = 'Strong Deal';
+  } else if (roi >= 10) {
+    verdictBar.classList.add('warn');
+    verdictIcon.textContent  = '⚠️';
+    verdictLabel.textContent = 'Thin Margin — Review Carefully';
+  } else {
+    verdictBar.classList.add('bad');
+    verdictIcon.textContent  = '❌';
+    verdictLabel.textContent = 'Deal Needs Work';
+  }
+}
+
+['calc-purchase', 'calc-rehab', 'calc-arv', 'calc-ltc', 'calc-rate'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener('input', runCalc);
+});
+
+document.querySelectorAll('.calc-term-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.calc-term-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('calc-term').value = btn.dataset.months;
+    runCalc();
+  });
+});
+
+runCalc();
+
 // ── Email capture form ─────────────────────────────────────────────
 const emailCapture = document.getElementById('email-capture');
 if (emailCapture) {
