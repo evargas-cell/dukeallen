@@ -197,6 +197,8 @@ function runCalc() {
   const grossProfit = arv - purchase - rehab - totalInt;
   const roi         = totalCost > 0 ? (grossProfit / totalCost) * 100 : 0;
 
+  const ltv = arv > 0 ? (loanAmt / arv) * 100 : 0;
+
   document.getElementById('res-loan').textContent     = calcFmt(loanAmt);
   document.getElementById('res-cash').textContent     = calcFmt(cashNeeded);
   document.getElementById('res-monthly').textContent  = calcFmt(monthlyInt);
@@ -204,12 +206,23 @@ function runCalc() {
   document.getElementById('res-profit').textContent   = calcFmt(grossProfit);
   document.getElementById('res-roi').textContent      = roi.toFixed(1) + '%';
 
+  const ltvEl   = document.getElementById('res-ltv');
+  const ltvFlag = document.getElementById('ltv-flag');
+  ltvEl.textContent = ltv.toFixed(1) + '%';
+  const ltvBad = ltv > 70;
+  ltvEl.classList.toggle('danger', ltvBad);
+  ltvFlag.hidden = !ltvBad;
+
   const verdictBar   = document.getElementById('calc-verdict-bar');
   const verdictIcon  = document.getElementById('calc-verdict-icon');
   const verdictLabel = document.getElementById('calc-verdict-label');
   verdictBar.classList.remove('warn', 'bad');
 
-  if (roi >= 20) {
+  if (ltvBad) {
+    verdictBar.classList.add('bad');
+    verdictIcon.textContent  = '❌';
+    verdictLabel.textContent = 'LTV Too High — Deal Needs Work';
+  } else if (roi >= 20) {
     verdictIcon.textContent  = '✅';
     verdictLabel.textContent = 'Strong Deal';
   } else if (roi >= 10) {

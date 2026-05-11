@@ -1382,6 +1382,24 @@ p { line-height: 1.7; }
 }
 .calc-metric-value.primary { color: var(--color-primary); }
 .calc-metric-value.accent  { color: var(--color-accent); }
+.calc-metric-value.danger  { color: #f87171; }
+
+.ltv-value-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.ltv-flag-badge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  background: rgba(248,113,113,0.18);
+  color: #f87171;
+  border: 1px solid rgba(248,113,113,0.4);
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  white-space: nowrap;
+}
 
 .calc-metric-divider {
   height: 1px;
