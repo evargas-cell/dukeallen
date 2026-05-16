@@ -156,7 +156,7 @@ p { line-height: 1.7; }
   display: flex;
   align-items: center;
   gap: 2rem;
-  height: 5.5rem;
+  height: 6rem;
 }
 
 .logo {
@@ -166,20 +166,18 @@ p { line-height: 1.7; }
   text-decoration: none;
 }
 .logo-img {
-  height: 72px;
+  height: 84px;
   width: auto;
-  /* White background logo on dark nav — white pill keeps it crisp */
-  background: #fff;
-  border-radius: 8px;
-  padding: 6px 12px;
   display: block;
-  /* Subtle shadow so logo lifts off the dark nav */
-  box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+  border-radius: 10px;
+  /* Stronger shadow to lift white logo off dark nav */
+  box-shadow: 0 4px 20px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,255,255,0.10);
 }
 .logo-img--footer {
-  height: 60px;
-  padding: 6px 12px;
+  height: 76px;
   margin-bottom: 0.75rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.12);
 }
 
 .main-nav {
