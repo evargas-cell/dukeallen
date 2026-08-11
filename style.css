@@ -670,6 +670,16 @@ p { line-height: 1.7; }
 }
 .loan-cta:hover { color: var(--color-primary-dark); }
 
+.rate-disclaimer {
+  margin-top: 1.75rem;
+  padding: 1rem 1.25rem;
+  border-left: 3px solid var(--color-border);
+  font-size: 0.8125rem;
+  line-height: 1.65;
+  color: var(--color-text-muted);
+  max-width: 62ch;
+}
+
 /* === WHY US === */
 .why-grid {
   display: grid;
